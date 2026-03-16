@@ -66,79 +66,80 @@ Diagrama UML
 
 El diagrama de clases que representa el modelo puede visualizarse en la imagen o accederse directamente mediante el enlace a Mermaid.
 
-```mermaid---
+```mermaid
+---
 config:
   layout: elk
 ---
 classDiagram
 direction TB
-    class GrupoMusical {
-	    -nombre : String
-	    -genero : String
-	    -musicos : List
-	    +agregarMusico(m: Musico)
-	    +tocar()
-    }
+class GrupoMusical {
+	-nombre : String
+	-genero : String
+	-musicos : List
+	+agregarMusico(m: Musico)
+	+tocar()
+}
 
-    class Musico {
-	    -nombre : String
-	    -edad : int
-	    +actuar()
-    }
+class Musico {
+	-nombre : String
+	-edad : int
+	+actuar()
+}
 
-    class Instrumentista {
-	    -instrumento : Instrumento
-	    +actuar()
-    }
+class Instrumentista {
+	-instrumento : Instrumento
+	+actuar()
+}
 
-    class Cantante {
-	    +actuar()
-    }
+class Cantante {
+	+actuar()
+}
 
-    class Fiesta {
-	    -nombre : String
-	    -ubicacion : String
-	    -fecha : String
-	    -grupoMusical : GrupoMusical
-	    +iniciar()
-	    +contratarGrupo(g: GrupoMusical)
-    }
+class Fiesta {
+	-nombre : String
+	-ubicacion : String
+	-fecha : String
+	-grupoMusical : GrupoMusical
+	+iniciar()
+	+contratarGrupo(g: GrupoMusical)
+}
 
-    class Instrumento {
-	    +tocar()
-    }
+class Instrumento {
+	+tocar()
+}
 
-    class Afinable {
-	    +afinar()
-    }
+class Afinable {
+	+afinar()
+}
 
-    class Guitarra {
-    }
+class Guitarra {
+}
 
-    class Bateria {
-    }
+class Bateria {
+}
 
-    class Piano {
-    }
+class Piano {
+}
 
-    class Maracas {
-    }
+class Maracas {
+}
 
-	<<abstract>> Musico
-	<<interface>> Instrumento
-	<<interface>> Afinable
+<<abstract>> Musico
+<<interface>> Instrumento
+<<interface>> Afinable
 
-    GrupoMusical "1" o-- "1..*" Musico : tiene
-    GrupoMusical "1" <-- "0..*" Fiesta : contrata
-    Musico <|-- Cantante
-    Musico <|-- Instrumentista
-    Instrumentista "1" o-- "1" Instrumento : tiene
-    Instrumento <|.. Guitarra
-    Instrumento <|.. Bateria
-    Instrumento <|.. Maracas
-    Instrumento <|.. Piano
-    Afinable <|.. Guitarra
-    Afinable <|.. Piano
+GrupoMusical "1" o-- "1..*" Musico : tiene
+GrupoMusical "1" <-- "0..*" Fiesta : contrata
+Musico <|-- Cantante
+Musico <|-- Instrumentista
+Instrumentista "1" o-- "1" Instrumento : tiene
+Instrumento <|.. Guitarra
+Instrumento <|.. Bateria
+Instrumento <|.. Maracas
+Instrumento <|.. Piano
+Afinable <|.. Guitarra
+Afinable <|.. Piano
 ```
 
 [Link mermaid](https://mermaid.ai/d/5e0c97cc-1f04-449a-b1a1-717b3c54f549)
