@@ -22,12 +22,19 @@ El sistema está compuesto por las siguientes clases principales:
 GrupoMusical
 
 Representa el conjunto de músicos que conforman el grupo.
-Contiene un arreglo (o lista) de músicos y permite agregar integrantes, presentarse en eventos y ejecutar la acción de tocar como conjunto.
+Contiene un arreglo (o lista) de músicos y permite agregar integrantes y ejecutar la acción de tocar como conjunto.
 
-Músico
+Músico (clase abstracta)
 
 Representa a cada integrante del grupo.
-Cada músico posee exactamente un instrumento y puede ejecutar la acción de tocar.
+
+Instrumentista
+
+Hereda de músico y tiene un instrumento que toca
+
+Cantante
+
+Hereda de músico y solo canta
 
 Instrumento (Interfaz)
 
@@ -48,10 +55,10 @@ Contiene una referencia al grupo musical contratado y puede iniciar el evento.
 Relaciones Entre Clases
 
 - Existe una agregación entre "GrupoMusical" y "Musico", ya que el grupo está compuesto por músicos, pero estos pueden existir independientemente.
-- Existe una asociación entre "Musico" e "Instrumento", ya que cada músico utiliza un instrumento.
+- Existe una asociación entre "Instrumentista" e "Instrumento", ya que cada Instrumentista utiliza un instrumento.
 - "Instrumento" es implementada por clases concretas como "Guitarra", "Bateria", "Piano" y "Maracas".
 - Algunos instrumentos implementan adicionalmente la interfaz "Afinable".
-- "Fiesta" se asocia con "GrupoMusical", ya que un grupo puede presentarse en distintos eventos.
+- "Fiesta" se asocia con "GrupoMusical", ya que una fiesta contrata a un grupo.
 
 ---
 
@@ -59,63 +66,79 @@ Diagrama UML
 
 El diagrama de clases que representa el modelo puede visualizarse en la imagen o accederse directamente mediante el enlace a Mermaid.
 
-```mermaid
+```mermaid---
+config:
+  layout: elk
+---
 classDiagram
+direction TB
+    class GrupoMusical {
+	    -nombre : String
+	    -genero : String
+	    -musicos : List
+	    +agregarMusico(m: Musico)
+	    +tocar()
+    }
 
-class GrupoMusical {
-  -nombre : String
-  -genero : String
-  -musicos : List<Musico>
-  +agregarMusico(m: Musico)
-  +tocar()
-  +presentarse(f: Fiesta)
-}
+    class Musico {
+	    -nombre : String
+	    -edad : int
+	    +actuar()
+    }
 
-class Musico {
-  -nombre : String
-  -edad : int
-  -instrumento : Instrumento
-  +tocar()
-}
+    class Instrumentista {
+	    -instrumento : Instrumento
+	    +actuar()
+    }
 
-class Fiesta {
-  -nombre : String
-  -ubicacion : String
-  -fecha : String
-  -grupoMusical : GrupoMusical
-  +iniciar()
-  +contratarGrupo(g: GrupoMusical)
-}
+    class Cantante {
+	    +actuar()
+    }
 
-class Instrumento {
-  <<interface>>
-  +tocar()
-}
-class Afinable {
-  <<interface>>
-  +afinar()
-}
+    class Fiesta {
+	    -nombre : String
+	    -ubicacion : String
+	    -fecha : String
+	    -grupoMusical : GrupoMusical
+	    +iniciar()
+	    +contratarGrupo(g: GrupoMusical)
+    }
 
-class Guitarra {
-}
+    class Instrumento {
+	    +tocar()
+    }
 
-class Bateria {
-}
+    class Afinable {
+	    +afinar()
+    }
 
-class Piano {
-}
+    class Guitarra {
+    }
 
-GrupoMusical "1" o-- "1..*" Musico : tiene
-GrupoMusical "1" -- "0..*" Fiesta : se presenta en
-Musico "1" -- "1" Instrumento : toca
-Instrumento <|.. Guitarra
-Instrumento <|.. Bateria
-Instrumento <|.. Maracas
-Instrumento <|.. Piano
+    class Bateria {
+    }
 
-Afinable <|.. Guitarra
-Afinable <|.. Bateria
-Afinable <|.. Piano
+    class Piano {
+    }
+
+    class Maracas {
+    }
+
+	<<abstract>> Musico
+	<<interface>> Instrumento
+	<<interface>> Afinable
+
+    GrupoMusical "1" o-- "1..*" Musico : tiene
+    GrupoMusical "1" <-- "0..*" Fiesta : contrata
+    Musico <|-- Cantante
+    Musico <|-- Instrumentista
+    Instrumentista "1" o-- "1" Instrumento : tiene
+    Instrumento <|.. Guitarra
+    Instrumento <|.. Bateria
+    Instrumento <|.. Maracas
+    Instrumento <|.. Piano
+    Afinable <|.. Guitarra
+    Afinable <|.. Piano
 ```
 
-[Link mermaid](https://mermaid.ai/d/bb9d827b-af14-427d-903a-edb739d57986)
+[Link mermaid](https://mermaid.ai/d/5e0c97cc-1f04-449a-b1a1-717b3c54f549)
