@@ -6,7 +6,7 @@ Integrantes
 
 - Sebastian David Trujillo Vargas (20242020217)
 
-- David Felipe Batanero Molina
+- David Felipe Batanero Molina (20241020092)
 
 Descripción del Ejercicio
 
