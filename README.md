@@ -1,4 +1,13 @@
 # Modelos_Actividad1
+
+Integrantes
+
+- Yhoan Mauricio Bermudez Tique (20242020242)
+
+- Sebastian David Trujillo Vargas (20242020217)
+
+- David Felipe Batanero Molina
+
 Descripción del Ejercicio
 
 Este proyecto consiste en el modelado de un sistema orientado a objetos que representa la estructura y funcionamiento de un grupo musical que participa en distintos eventos o fiestas.
